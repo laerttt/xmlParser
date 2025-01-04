@@ -1,0 +1,19 @@
+# Compiled object files
+*.o
+
+# Compiled binary or executable
+xml_parser
+
+# Backup files
+*~
+
+# Logs and debugging
+*.log
+*.out
+*.err
+
+# MacOS specific files
+.DS_Store
+
+# Generated files
+*.dSYM
