@@ -1,28 +1,29 @@
-#include "xml_parser.h" // Include the custom XML parser header file
-#include <stdio.h>      // Include standard I/O library for printing
-#include <stdlib.h>     // Include standard library for atoi and memory functions
-#include <string.h>     // Include string library for string manipulation functions
+#include "xml_parser.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-// Callback function to handle parsing events
-void example_callback(const char *event, const char *path, const char *key, const char *value) {
-    static char current_id[ATTR_SIZE]; // Static variable to store the current order ID
-
-    // Check if the event is an "attribute" and the key is "id"
+// callback function to handle parsing events
+void callback(const char *event, const char *path, const char *key, const char *value) {
+    // static variable to store the current order ID
+    static char current_id[ATTR_SIZE]; 
+    // check if the event is in "attribute" state and the key is named "id"
     if (strcmp(event, "attribute") == 0 && strcmp(key, "id") == 0) {
-        strcpy(current_id, value); // Store the current order ID
+        // store the current order id
+        strcpy(current_id, value); 
     } 
-    // Check if the event is "text" and the path matches "/order/amount"
+    // check if the event is in "text" state and the path matches "/order/amount"
     else if (strcmp(event, "text") == 0 && strstr(path, "/order/amount") != NULL) {
-        int amount = atoi(value); // Convert the text value to an integer
+        int amount = atoi(value); // convert the text (char type) to integer
         printf("Order ID: %s\tAmount: %d\n", current_id, amount); // Print the order ID and amount
     }
 }
 
 int main() {
-    // XML data to be parsed
+    // mock data to be parsed
     const char *xml_data =
         "<root>"
-        "    <order id=\"1111\">"
+        "    <order id=\"111\">"
         "        <amount>150</amount>"
         "    </order>"
         "    <order id=\"222\">"
@@ -31,23 +32,23 @@ int main() {
         "    <order id=\"333\">"
         "        <amount>2000</amount>"
         "    </order>"
-        "    <order id=\"1112\">"
+        "    <order id=\"123\">"
         "        <amount>15</amount>"
         "    </order>"
-        "    <order id=\"223\">"
+        "    <order id=\"321\">"
         "        <amount>4</amount>"
         "    </order>"
-        "    <order id=\"334\">"
+        "    <order id=\"231\">"
         "        <amount>200</amount>"
         "    </order>"
-        "    <order id=\"334\">"
+        "    <order id=\"213\">"
         "        <amount>200</amount>"
         "    </order>"
         "</root>";
 
-    XMLParser parser;               // Declare an XMLParser object
-    init_parser(&parser);           // Initialize the parser
-    parse_xml(&parser, xml_data, example_callback); // Parse the XML data with the callback function
+    XMLParser parser;               // declare an XMLParser object
+    init_parser(&parser);           // initialize the parser
+    parse_xml(&parser, xml_data, callback); // oarse the XML data with the callback function
 
-    return 0; // Exit the program
+    return 0;
 }

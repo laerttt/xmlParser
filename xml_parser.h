@@ -1,29 +1,30 @@
+// custom header for constant vars and functions
 #ifndef XML_PARSER_H
 #define XML_PARSER_H
 
-// Define constants for maximum attribute size and path size
-#define ATTR_SIZE 128 // Maximum size for attribute name and value
-#define PATH_SIZE 256 // Maximum size for the XML path
+// constants for maximum attribute size and path size
+#define ATTR_SIZE 128 
+#define PATH_SIZE 256
 
-// Structure to represent a single XML attribute (name-value pair)
+// attribute & parser structure
 typedef struct {
-    char name[ATTR_SIZE];  // Name of the attribute
-    char value[ATTR_SIZE]; // Value of the attribute
+    char name[ATTR_SIZE];
+    char value[ATTR_SIZE];
 } Attribute;
-
-// Structure to represent the state of the XML parser
 typedef struct {
-    char path[PATH_SIZE];                // Current XML path (e.g., "/root/order")
-    char current_element[ATTR_SIZE];     // Name of the current element being processed
-    Attribute attributes[ATTR_SIZE];     // Array to hold attributes of the current element
-    int attr_count;                      // Number of attributes in the current element
+    // path - xml path (e.g., "/root/order")
+    // current_element - curr element being processed
+    // attr_count - attributes in the current element
+    char path[PATH_SIZE];           
+    char current_element[ATTR_SIZE];
+    Attribute attributes[ATTR_SIZE];
+    int attr_count;                      
 } XMLParser;
 
-// Type definition for a callback function
-// The callback is called for events like "start_element", "end_element", "attribute", and "text"
+// called for events like "start_element", "end_element", "attribute", and "text"
 typedef void (*Callback)(const char *event, const char *path, const char *key, const char *value);
 
-// Function to initialize the XML parser structure
+// initializer for the XML parser structure
 void init_parser(XMLParser *parser);
 
 // Function to parse an XML string
@@ -32,4 +33,4 @@ void init_parser(XMLParser *parser);
 // - `callback`: Function to handle parsing events
 void parse_xml(XMLParser *parser, const char *xml, Callback callback);
 
-#endif // XML_PARSER_H
+#endif
