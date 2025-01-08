@@ -1,5 +1,13 @@
-# XML Parser Project: Forward-Only High-Performance XML Parser
+# XML Parser Project
 
+## **How to run**
+In terminal navigate to this directory and enter commands:
+```bash 
+ $ make
+ ```
+ ```bash 
+ $ ./xml_parser
+ ```
 ## **Overview**
 
 This project addresses the challenge of parsing large XML documents where performance is critical. The goal is to build a **forward-only XML parser** that processes XML efficiently, providing access to data as it traverses the document in a single pass.
@@ -67,7 +75,8 @@ The parser triggers callback functions to report events such as:
 
 ### Parser Callback
 
-```void example_callback(const char *event, const char *path, const char *key, const char *value) {
+```c
+void example_callback(const char *event, const char *path, const char *key, const char *value) {
     static char current_id[128];
     if (strcmp(event, "attribute") == 0 && strcmp(key, "id") == 0) {
         strcpy(current_id, value); // Store the order id
@@ -81,7 +90,8 @@ The parser triggers callback functions to report events such as:
 ```
 ### Main Function
 
-```int main() {
+```c
+int main() {
     const char *xml_data =
         "<root>"
         "    <order id=\"1111\">"
@@ -102,24 +112,17 @@ The parser triggers callback functions to report events such as:
     return 0;
 }
 ```
-## Testing
-
-### Test Cases
-- [ ] Basic Functionality:
-- Ensure elements, attributes, and text are correctly parsed and reported.
-- [ ] Entity Decoding:
-- Verify entities like &lt;, &gt;, and &amp; are decoded properly.
-- [ ] Path Tracking:
-- Confirm the path is correctly maintained (e.g., /root/order/amount).
-- [ ] Large XML Documents:
-- Test with large XML files to validate performance and memory usage.
-
 ## Expected Output
 
 For the example XML provided, the program should output:
-```
-Order ID: 1111	Amount: 150
-Order ID: 333	Amount: 2000
+```bash
+Order ID: 111   Amount: 150
+Order ID: 222   Amount: 2
+Order ID: 333   Amount: 2000
+Order ID: 123   Amount: 15
+Order ID: 321   Amount: 4
+Order ID: 231   Amount: 200
+Order ID: 213   Amount: 200
 ```
 **_Summary_**
 
