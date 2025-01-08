@@ -8,6 +8,7 @@ In terminal navigate to this directory and enter commands:
  ```bash 
  $ ./xml_parser
  ```
+ You can change the value of the mock input variable ```*xml_data``` in main.c to test different inputs.
 ## **Overview**
 
 This project addresses the challenge of parsing large XML documents where performance is critical. The goal is to build a **forward-only XML parser** that processes XML efficiently, providing access to data as it traverses the document in a single pass.
